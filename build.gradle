@@ -27,7 +27,7 @@ jar {
 		instruction 'Bundle-Vendor', 'Aquent, LLC (cfalzone@aquent.com)'
 		instruction 'Bundle-Description', 'Aquent GPlus Auth Plugin'
 		instruction 'Bundle-DocURL', 'http://www.aquent.com'
-		instruction 'Bundle-Activator', 'com.aquent.dotcms.osgi.GPlusAuthActivator'
+		instruction 'Bundle-Activator', 'com.aquent.dotcms.plugins.gplusauth.GPlusAuthActivator'
 		instruction 'Bundle-ClassPath', '.', 
 			'lib/google-api-client-1.17.0-rc.jar', 
         	'lib/google-api-client-appengine-1.17.0-rc.jar', 
