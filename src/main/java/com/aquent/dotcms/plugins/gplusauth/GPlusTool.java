@@ -15,6 +15,8 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeReque
 
 /**
  * 
+ * A Viewtool to generate a Google+ Login Url
+ * 
  * @author Aquent, LLC (cfalzone@aquent.com)
  *
  */
@@ -51,6 +53,7 @@ public class GPlusTool implements ViewTool {
         
         Logger.info(this, "Generating G+ Login URL for "+req.getRequestURL().toString()+" on Client ID="+gpClientId);
         
+        // Generate the Auth URL and return it to the page
 		return new GoogleAuthorizationCodeRequestUrl(
 				gpClientId, redirectUri, Arrays.asList(
                 "https://www.googleapis.com/auth/userinfo.email",
