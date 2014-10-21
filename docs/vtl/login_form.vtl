@@ -1,0 +1,10 @@
+          #if( $UtilMethods.isSet($request.getParameter('logout')) && $request.getParameter('logout') == 'true' )##
+            <p>You Have Been Logged Out</p>
+          #end##
+
+          #if( $UtilMethods.isSet($request.getParameter('s')) && $request.getParameter('s') == 'fail' )##
+            <p>Login Failed</p>
+          #end##
+
+          <p>Login With Your Google Account</p>
+          <a href="${gplus.getGPlusAuthUrl($request)}">Login</a>

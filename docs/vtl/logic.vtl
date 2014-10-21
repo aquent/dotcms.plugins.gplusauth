@@ -1,0 +1,12 @@
+#set( $session = $request.getSession() )##
+
+## Check for logout
+#if( $UtilMethods.isSet( $request.getParameter( "logout" ) ) )##
+  #set( $_dummy = $session.setAttribute( "gPlusToken", null ) )##
+  #set( $_dummy = $session.setAttribute( "gPlusEmail", null ) )##
+  #set( $_dummy = $session.setAttribute( "gPlusState", null ) )##
+#end##
+
+## SEE IF WE ARE LOGGED IN
+#set( $gPlusToken = $session.getAttribute("gPlusToken") )##
+#set( $gPlusEmail = $session.getAttribute("gPlusEmail") )##
