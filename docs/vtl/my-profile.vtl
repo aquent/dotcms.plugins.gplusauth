@@ -1,0 +1,60 @@
+## For this example to work you need a Structure called GoogleUser with 4 fields:
+## firstName, lastName, emailAddress, and notes
+## Also each user will need a contentlet in this structure where the emailAddress 
+## field matches the google account they are logging in with.
+
+#set($query = "+structureName:GoogleUser +GoogleUser.emailAddress:$gPlusEmail")
+<p>User Query = $query</p>
+#set($list = $dotcontent.pull($query, 1, "modDate desc") )
+#if($list.size() > 0)
+  #set($gPlusUser = $list.get(0))
+
+  <form id="userForm" action="">
+    <input type="hidden" name="id" id="id" value="$!{gPlusUser.identifier}" />
+  <dl>
+    <dt><label for="firstName">First Name</label></dt>
+    <dd><input name="firstName" id="firstName" type="text" value="$!{gPlusUser.firstName}" /></dd>
+    <dt>Last Name</dt>
+    <dd><input name="lastName" id="lastName" type="text" value="$!{gPlusUser.lastName}" /></dd> 
+    <dt>Notes:</dt>
+    <dd><textarea name="notes" id="notes" cols="60" rows="10">$!{gPlusUser.notes}</textarea></dd>
+  </dl>
+  <p><input type="submit" id="post" name="post" value="Submit"/></p>
+  </form>
+
+<script>
+  $(document).ready(function() {
+    $("#userForm").submit(function(e) {
+      e.preventDefault();
+     
+      var dataObj={'identifier': $('#id').val(),
+            'firstName': $('#firstName').val(),
+            'lastName': $('#lastName').val(),
+            'notes': $('#notes').val(),
+            'stName': 'GoogleUser'};
+ 
+      $.ajax({
+            url: '/api/content/publish/1',
+            type: 'PUT',
+            cache:false,
+            data: dataObj,          
+            beforeSend: function (request){
+              request.setRequestHeader("DOTAUTH", window.btoa("admin@dotcms.com:admin"));
+            },
+ 
+            success: function(data,status,xhr) {
+              alert("Success: "   );
+              window.location = "/secret/my-profile.html";
+            },
+            error: function(data,status,xhr) {
+              alert("fail: " + data );
+              console.log(data );
+            },
+      });
+    });
+  });
+</script>
+
+#else
+  <p>I don't have any record of your user.</p>
+#end
