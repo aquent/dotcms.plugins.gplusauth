@@ -1,23 +1,29 @@
-apply plugin: 'war'
 apply plugin: 'osgi'
 apply plugin: 'eclipse'
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-maven'
+apply plugin: 'propdeps-eclipse'
 
 sourceCompatibility = '1.7'
-version = '0.1'
 
 repositories {
 	mavenCentral()
-	maven {
-		url "http://repo.dotcms.com/artifactory/libs-release"
-	}
+	maven { url "http://repo.dotcms.com/artifactory/libs-release" }
 }
 
 dependencies {
-	compile (group: 'com.dotcms', name: 'dotcms', version: '2.5.3'){
-		transitive = true
-	}
-	providedCompile "javax.servlet:servlet-api:2.5"
+	compile('com.dotcms:dotcms:2.5.3') { transitive = true }
+	provided('javax.servlet:servlet-api:2.5')
 	compile fileTree(dir: 'src/main/resources/lib', include: '*.jar')
+}
+
+buildscript {
+	repositories {
+		maven { url 'http://repo.spring.io/plugins-release' }
+	}
+	dependencies {
+		classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+	}
 }
 
 jar {
@@ -30,19 +36,19 @@ jar {
 		instruction 'Bundle-Activator', 'com.aquent.dotcms.plugins.gplusauth.GPlusAuthActivator'
 		instruction 'Bundle-ClassPath', '.', 
 			'lib/google-api-client-1.17.0-rc.jar', 
-        	'lib/google-api-client-appengine-1.17.0-rc.jar', 
-        	'lib/google-api-client-servlet-1.17.0-rc.jar', 
-        	'lib/google-http-client-1.17.0-rc.jar', 
-        	'lib/google-http-client-appengine-1.17.0-rc.jar',
-        	'lib/google-http-client-jackson-1.17.0-rc.jar', 
-        	'lib/google-oauth-client-1.17.0-rc.jar', 
-        	'lib/google-oauth-client-appengine-1.17.0-rc.jar', 
-        	'lib/google-oauth-client-servlet-1.17.0-rc.jar'
-        instruction 'DynamicImport-Package', '*'
-        instruction 'Import-Package', 
-        	'!com.google.api.*',
-        	'*;version=0'
-        instruction 'Export-Package', '*;version=0'
+			'lib/google-api-client-appengine-1.17.0-rc.jar', 
+			'lib/google-api-client-servlet-1.17.0-rc.jar', 
+			'lib/google-http-client-1.17.0-rc.jar', 
+			'lib/google-http-client-appengine-1.17.0-rc.jar',
+			'lib/google-http-client-jackson-1.17.0-rc.jar', 
+			'lib/google-oauth-client-1.17.0-rc.jar', 
+			'lib/google-oauth-client-appengine-1.17.0-rc.jar', 
+			'lib/google-oauth-client-servlet-1.17.0-rc.jar'
+		instruction 'DynamicImport-Package', '*'
+		instruction 'Import-Package', 
+			'!com.google.api.*',
+			'*;version=0'
+		instruction 'Export-Package', '*;version=0'
 	}
 }
 
