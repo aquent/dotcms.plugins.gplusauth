@@ -6,7 +6,7 @@ Included is a Viewtool that generates the login link and a servlet to handle the
 
 Installation
 ------------
-* Befoer starting with this plugin you should set up a Google Cloud App at [cloud.google.com](http://cloud.google.com)
+* Before starting with this plugin you should set up a Google Cloud App at [cloud.google.com](http://cloud.google.com)
 * You will need to enable the Google+ API, Set up a Conset Screen, and Generate an OAuth Client ID
 * Navigate to the dotCMS Dynamic plugins page: "System" > "Dynamic Plugins"
 * Click on "Upload plugin" and select the .jar file located in the "build/libs/" folder
